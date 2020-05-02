@@ -11,10 +11,48 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Bukuku | Login";
-        $this->load->view('template/auth_header', $data);
-        $this->load->view('auth/login');
-        $this->load->view('template/auth_footer');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = "Bukuku | Login";
+            $this->load->view('template/auth_header', $data);
+            $this->load->view('auth/login');
+            $this->load->view('template/auth_footer');
+        } else {
+            $this->_login();
+        }
+    }
+
+    private function _login()
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+
+        $user = $this->db->get_where('user', ['user_email' => $email])->row_array();
+
+        if ($user) {
+            if ($user['user_is_active'] == 1) {
+
+                if (password_verify($password, $user['user_password'])) {
+                    $data = [
+                        'user_email' => $user['user_email'],
+                        'user_role_id' => $user['user_role_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('user');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Password salah</div>');
+                    redirect('auth');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Akun belum aktif</div>');
+                redirect('auth');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Email is not registered</div>');
+            redirect('auth');
+        }
     }
 
     public function daftar()
@@ -36,8 +74,8 @@ class Auth extends CI_Controller
             $this->load->view('template/auth_footer');
         } else {
             $data = [
-                'user_nama' => $this->input->post('name'),
-                'user_email' => $this->input->post('email'),
+                'user_nama' => htmlspecialchars($this->input->post('name', true)),
+                'user_email' => htmlspecialchars($this->input->post('email', true)),
                 'user_gambar' => 'default.jpg',
                 'user_password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'user_role_id' => 2,
@@ -49,5 +87,12 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran Berhasil</div>');
             redirect('auth');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('user_email');
+        $this->session->unset_userdata('role_id');
+        redirect('auth');
     }
 }
