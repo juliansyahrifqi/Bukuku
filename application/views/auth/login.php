@@ -15,7 +15,17 @@
                                     <h1 class="h4 text-gray-900 mb-4">LOGIN</h1>
                                 </div>
 
-                                <?= $this->session->flashdata('message'); ?>
+                                <?php if ($this->session->flashdata('success')) : ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <?= $this->session->flashdata('success'); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->session->flashdata('failed')) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= $this->session->flashdata('failed'); ?>
+                                    </div>
+                                <?php endif; ?>
 
                                 <form class="user" method="post" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">

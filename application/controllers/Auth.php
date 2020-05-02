@@ -6,6 +6,7 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('auth_model');
         $this->load->library('form_validation');
     }
 
@@ -42,21 +43,23 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     redirect('user');
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Password salah</div>');
+                    $this->session->set_flashdata('failed', 'Password salah');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Akun belum aktif</div>');
+                $this->session->set_flashdata('failed', 'Akun belum aktif');
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Email is not registered</div>');
+            $this->session->set_flashdata('failed', 'Email is not registered');
             redirect('auth');
         }
     }
 
     public function daftar()
     {
+        $hasil = $this->auth_model;
+
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.user_email]', [
             'is_unique' => "This email has already registered"
@@ -73,18 +76,8 @@ class Auth extends CI_Controller
             $this->load->view('auth/registration');
             $this->load->view('template/auth_footer');
         } else {
-            $data = [
-                'user_nama' => htmlspecialchars($this->input->post('name', true)),
-                'user_email' => htmlspecialchars($this->input->post('email', true)),
-                'user_gambar' => 'default.jpg',
-                'user_password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'user_role_id' => 2,
-                'user_is_active' => 1,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pendaftaran Berhasil</div>');
+            $hasil->insert();
+            $this->session->set_flashdata('success', 'Pendaftaran Berhasil');
             redirect('auth');
         }
     }
