@@ -6,13 +6,13 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('auth_model');
+        $this->load->model('user_model');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('username', 'Username or Email', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -27,21 +27,29 @@ class Auth extends CI_Controller
 
     private function _login()
     {
-        $email = $this->input->post('email');
+
+        $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $user = $this->db->get_where('user', ['user_email' => $email])->row_array();
+        // Model
+        $this->load->model('User_model', 'user');
+        $user = $this->user->userCheckLogin($username);
 
-        if ($user) {
+        if ($user != null) {
             if ($user['user_is_active'] == 1) {
 
                 if (password_verify($password, $user['user_password'])) {
                     $data = [
                         'user_email' => $user['user_email'],
+                        'user_username' => $user['user_username'],
                         'user_role_id' => $user['user_role_id']
                     ];
                     $this->session->set_userdata($data);
-                    redirect('user');
+                    if ($user['user_role_id'] == 1) {
+                        redirect('admin');
+                    } else {
+                        redirect('user');
+                    }
                 } else {
                     $this->session->set_flashdata('failed', 'Password salah');
                     redirect('auth');
@@ -58,7 +66,8 @@ class Auth extends CI_Controller
 
     public function daftar()
     {
-        $hasil = $this->auth_model;
+        // Instance objek user_model
+        $hasil = $this->user_model;
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.user_email]', [

@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class Admin extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('buku_model');
         is_logged_in();
     }
 
@@ -25,7 +25,7 @@ class User extends CI_Controller
         }
 
         $data['jam'] = $greet;
-        $data['title'] = 'My Profile';
+        $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
 
         $this->load->view('template/header', $data);
