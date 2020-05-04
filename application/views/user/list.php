@@ -7,6 +7,12 @@
         </div>
     <?php endif; ?>
 
+    <?php if ($this->session->flashdata('failed')) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->session->flashdata('failed'); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="card mb-3">
         <div class="card-header">
             <a class="btn btn-success btn-icon-split" href="<?php echo site_url('buku/add') ?>">
@@ -18,8 +24,9 @@
                 </span>
             </a>
         </div>
-        <div class="card-body">
 
+
+        <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -61,16 +68,38 @@
                                 </td>
                                 <td width="150">
                                     <a href="" class="btn btn-primary btn-circle"><i class="fas fa-edit"></i></a>
-                                    <a href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                                    <a href="" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal">
+                                        <i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
+
+
+                            <!-- Delete Modal-->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModal">Yakin mau dihapus ?</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Buku dengan judul "<b><?= $b->judul_buku; ?></b>" akan dihapus. Tekan hapus
+                                            jika anda sudah yakin akan menghapus
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            <a class="btn btn-primary" href="<?= base_url('buku/delete/' . $b->id_buku); ?>">Hapus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
 

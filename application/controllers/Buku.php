@@ -45,6 +45,7 @@ class Buku extends CI_Controller
             $this->load->view('template/topbar');
             $this->load->view('user/form_add');
             $this->load->view('template/footer');
+            $this->load->view('template/js');
         } else {
             $this->buku_model->insert();
             if ($this->db->affected_rows() > 0) {
@@ -54,6 +55,24 @@ class Buku extends CI_Controller
                 $this->session->set_flashdata('failed', 'Data gagal ditambahkan');
                 redirect('buku');
             }
+        }
+    }
+
+    public function edit()
+    {
+        // Code
+    }
+
+    public function delete($id = null)
+    {
+        if (!isset($id)) {
+            $this->session->set_flashdata('failed', 'Buku tidak ditemukan !');
+            redirect('buku');
+        }
+
+        if ($this->buku_model->delete($id)) {
+            $this->session->set_flashdata('success', 'Data buku berhasil dihapus !');
+            redirect('buku');
         }
     }
 }

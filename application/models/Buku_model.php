@@ -31,24 +31,11 @@ class Buku_model extends CI_Model
 
     public function update()
     {
-        $data = [
-            'id_buku' => $this->input->post('id'),
-            'judul_buku' => $this->input->post('judul'),
-            'gambar_buku' => $this->_uploadImage(),
-            'penerbit' => $this->input->post('penerbit'),
-            'penulis' => $this->input->post('penulis'),
-            'deskripsi' => $this->input->post('deskripsi'),
-            'tahun_beli' => $this->input->post('tahun')
-        ];
-
-        $this->db->where('id_buku', 'id');
-        $this->db->update($data);
     }
 
     public function delete($id)
     {
-        $this->db->where('id_buku', $id);
-        $this->db->delete('buku');
+        return $this->db->delete('buku', ['id_buku' => $id]);
     }
 
     private function _uploadImage()

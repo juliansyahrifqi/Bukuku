@@ -14,7 +14,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">ADD DATA</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">TAMBAH DATA</h1>
                                     </div>
 
                                     <form class="buku" method="post" action="<?= base_url('buku/add'); ?>" enctype="multipart/form-data">
@@ -54,7 +54,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="name">Gambar Buku</label>
+                                            <label class="font-weight-bold text-dark" for="gambar">Gambar Buku</label>
                                             <input class="form-control-file" type="file" name="gambar" id="gambar" />
                                         </div>
 
@@ -76,16 +76,4 @@
 </div>
 <!-- /.container-fluid -->
 
-<?php $this->load->view('template/js.php'); ?>
-<script type="text/javascript">
-    $(".date").datepicker({
-        format: "yyyy",
-        viewMode: "years",
-        minViewMode: "years",
-        autoclose: true
-    });
-</script>
-</body>
-
-</html>
 <!-- End of Main Content -->
