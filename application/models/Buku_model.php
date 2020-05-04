@@ -11,7 +11,7 @@ class Buku_model extends CI_Model
 
     public function getById($id)
     {
-        return $this->db->get_where($this->_table, ["product_id" => $id])->row();
+        return $this->db->get_where('buku', ["id_buku" => $id])->row();
     }
 
     public function insert()
@@ -19,11 +19,11 @@ class Buku_model extends CI_Model
         $data = [
             'id_buku' => uniqid(),
             'judul_buku' => $this->input->post('judul'),
-            'gambar_buku' => 'default-buku.jpg',
+            'gambar_buku' => $this->_uploadImage(),
             'penerbit' => $this->input->post('penerbit'),
             'penulis' => $this->input->post('penulis'),
             'deskripsi' => $this->input->post('deskripsi'),
-            'tahun_beli' => time()
+            'tahun_beli' => $this->input->post('tahun')
         ];
 
         $this->db->insert('buku', $data);
@@ -34,11 +34,11 @@ class Buku_model extends CI_Model
         $data = [
             'id_buku' => $this->input->post('id'),
             'judul_buku' => $this->input->post('judul'),
-            'gambar_buku' => 'default-buku.jpg',
+            'gambar_buku' => $this->_uploadImage(),
             'penerbit' => $this->input->post('penerbit'),
             'penulis' => $this->input->post('penulis'),
             'deskripsi' => $this->input->post('deskripsi'),
-            'tahun_beli' => time()
+            'tahun_beli' => $this->input->post('tahun')
         ];
 
         $this->db->where('id_buku', 'id');
@@ -49,5 +49,24 @@ class Buku_model extends CI_Model
     {
         $this->db->where('id_buku', $id);
         $this->db->delete('buku');
+    }
+
+    private function _uploadImage()
+    {
+        $upload_gambar = $_FILES['gambar']['name'];
+
+        if ($upload_gambar) {
+            $config['upload_path'] = './upload/buku/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 2048;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('gambar')) {
+                return $this->upload->data('file_name');
+            } else {
+                echo ($this->upload->display_errors());
+            }
+        }
     }
 }
