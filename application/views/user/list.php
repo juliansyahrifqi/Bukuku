@@ -42,59 +42,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($buku as $b) : ?>
-                            <tr class="text-center">
-                                <td>
-                                    <?= $i++ ?>
-                                </td>
-                                <td>
-                                    <?php echo $b->judul_buku ?>
-                                </td>
-                                <td>
-                                    <img src="<?php echo base_url('upload/buku/' . $b->gambar_buku) ?>" width="80" />
-                                </td>
-                                <td>
-                                    <?php echo $b->penerbit ?>
-                                </td>
-                                <td>
-                                    <?php echo $b->penulis ?>
-                                </td>
-                                <td class="small">
-                                    <?php echo substr($b->deskripsi, 0, 120) ?>...
-                                </td>
-                                <td width="150">
-                                    <?php echo $b->tahun_beli ?>
-                                </td>
-                                <td width="150">
-                                    <a href="" class="btn btn-primary btn-circle"><i class="fas fa-edit"></i></a>
-                                    <a href="" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal">
-                                        <i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
+                        <!-- Jika Data Buku kosong tidak ada -->
+                        <?php if (empty($buku)) { ?>
+                            <div class="alert alert-danger">Data buku belum ada </div>
 
+                            <!-- Jika Data Buku tidak kosong -->
+                        <?php } else { ?>
+                            <?php $i = 1; ?>
+                            <?php foreach ($buku as $b) : ?>
+                                <tr class="text-center">
+                                    <td>
+                                        <?= $i++ ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $b->judul_buku ?>
+                                    </td>
+                                    <td>
+                                        <img src="<?php echo base_url('upload/buku/' . $b->gambar_buku) ?>" width="80" />
+                                    </td>
+                                    <td>
+                                        <?php echo $b->penerbit ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $b->penulis ?>
+                                    </td>
+                                    <td class="small">
+                                        <?php echo substr($b->deskripsi, 0, 120) ?>...
+                                    </td>
+                                    <td width="150">
+                                        <?php echo $b->tahun_beli ?>
+                                    </td>
+                                    <td width="150">
+                                        <a href="<?= base_url('buku/edit/' . $b->id_buku); ?>" class="btn btn-primary btn-circle"><i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
 
-                            <!-- Delete Modal-->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModal">Yakin mau dihapus ?</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">Buku dengan judul "<b><?= $b->judul_buku; ?></b>" akan dihapus. Tekan hapus
-                                            jika anda sudah yakin akan menghapus
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                            <a class="btn btn-primary" href="<?= base_url('buku/delete/' . $b->id_buku); ?>">Hapus</a>
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModal">Yakin mau dihapus ?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Buku dengan akan dihapus. Tekan hapus
+                                                jika anda sudah yakin ingin menghapus
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <a class="btn btn-primary" href="<?= base_url('buku/delete/' . $b->id_buku); ?>">Hapus</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

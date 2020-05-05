@@ -58,9 +58,35 @@ class Buku extends CI_Controller
         }
     }
 
-    public function edit()
+    public function edit($id = null)
     {
-        // Code
+
+        if (!isset($id)) echo "gagal";
+        $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
+        $this->form_validation->set_rules('penerbit', 'Penerbit', 'required|trim');
+        $this->form_validation->set_rules('penulis', 'Penulis', 'required|trim');
+        $this->form_validation->set_rules('deskripsi', 'Deksripsi', 'required|trim');
+        $this->form_validation->set_rules('tahun', 'Tahun', 'required');
+
+        $data['jam'] = getTime();
+        $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
+
+
+        if ($this->form_validation->run()) {
+            $this->buku_model->update();
+            $this->session->set_flashdata('success', 'Data berhasil diupdate');
+        }
+
+        $data['buku'] = $this->buku_model->getById($id);
+        if (!$data['buku']) echo "gaada";
+
+        $data['title'] = 'Bukuku | Tambah';
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('user/form_edit', $data);
+        $this->load->view('template/footer');
+        $this->load->view('template/js');
     }
 
     public function delete($id = null)
