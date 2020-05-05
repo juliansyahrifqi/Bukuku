@@ -14,38 +14,41 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">TAMBAH DATA</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">EDIT DATA</h1>
                                     </div>
 
-                                    <form class="buku" method="post" action="<?= base_url('buku/add'); ?>" enctype="multipart/form-data">
+                                    <form class="buku" method="post" action="" enctype="multipart/form-data">
+
+                                        <input type="hidden" name="id" value="<?= $buku->id_buku; ?>" />
+
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="judul"> Judul Buku</label>
-                                            <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Nama Judul Buku" value="<?= set_value('judul'); ?>">
+                                            <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Nama Judul Buku" value="<?= $buku->judul_buku; ?>">
                                             <?= form_error('judul', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="penerbit"> Penerbit Buku</label>
-                                            <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Nama Penerbit" value="<?= set_value('penerbit'); ?>">
+                                            <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Nama Penerbit" value="<?= $buku->penerbit; ?>">
                                             <?= form_error('penerbit', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="penulis"> Penulis Buku</label>
-                                            <input type="text" class="form-control" id="penulis" name="penulis" placeholder="Nama Penulis" value="<?= set_value('penulis'); ?>">
+                                            <input type="text" class="form-control" id="penulis" name="penulis" placeholder="Nama Penulis" value="<?= $buku->penulis; ?>">
                                             <?= form_error('penulis', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="deskripsi"> Deskripsi Buku</label>
-                                            <textarea class="form-control" rows="3" id="deskripsi" name="deskripsi" placeholder="Deskripsi Buku" value="<?= set_value('deskripsi'); ?>"></textarea>
+                                            <textarea class="form-control" rows="3" id="deskripsi" name="deskripsi" placeholder="Deskripsi Buku"><?= $buku->deskripsi ?></textarea>
                                             <?= form_error('deskripsi', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                         </div>
 
                                         <div class=" form-group">
                                             <label class="font-weight-bold text-dark" for="tahun"> Tahun Beli</label>
                                             <div class="input-group date w-50">
-                                                <input type=" text" class="form-control" id="tahun" name="tahun" value="<?= set_value('tahun'); ?>" readonly>
+                                                <input type=" text" class="form-control" id="tahun" name="tahun" value="<?= $buku->tahun_beli; ?>" readonly>
                                                 <span class="input-group-addon">
                                                     <button class="btn btn-light" type="button"><i class="fas fa-calendar-alt"></i></button>
                                                 </span>
@@ -56,6 +59,7 @@
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="gambar">Gambar Buku</label>
                                             <input class="form-control-file" type="file" name="gambar" id="gambar" />
+                                            <input type="hidden" name="gambar_lama" value="<?= $buku->gambar_buku; ?>">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">

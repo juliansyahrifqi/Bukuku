@@ -13,7 +13,7 @@ class Buku extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Bukuku | Buku';
         $data['jam'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
         $data['buku'] = $this->buku_model->getAll();
@@ -21,7 +21,7 @@ class Buku extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar');
-        $this->load->view('user/list');
+        $this->load->view('admin/list_buku');
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
@@ -37,31 +37,34 @@ class Buku extends CI_Controller
         $data['jam'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
         $data['buku'] = $this->buku_model->getAll();
+        $data['title'] = 'Bukuku | Tambah Data';
 
-        if ($this->form_validation->run() == false) {
-            $data['title'] = 'Bukuku | Tambah';
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar');
-            $this->load->view('template/topbar');
-            $this->load->view('user/form_add');
-            $this->load->view('template/footer');
-            $this->load->view('template/js');
-        } else {
+        if ($this->form_validation->run()) {
             $this->buku_model->insert();
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-                redirect('buku');
+                redirect('admin/buku');
             } else {
                 $this->session->set_flashdata('failed', 'Data gagal ditambahkan');
-                redirect('buku');
+                redirect('admin/buku');
             }
+        } else {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar');
+            $this->load->view('template/topbar');
+            $this->load->view('admin/form_add');
+            $this->load->view('template/footer');
+            $this->load->view('template/js');
         }
     }
 
     public function edit($id = null)
     {
+        if (!isset($id)) {
+            $this->session->set_flashdata('failed', 'Buku tidak ditemukan !');
+            redirect('admin/buku');
+        }
 
-        if (!isset($id)) echo "gagal";
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
         $this->form_validation->set_rules('penerbit', 'Penerbit', 'required|trim');
         $this->form_validation->set_rules('penulis', 'Penulis', 'required|trim');
@@ -70,21 +73,21 @@ class Buku extends CI_Controller
 
         $data['jam'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
-
+        $data['buku'] = $this->buku_model->getById($id);
+        $data['title'] = 'Bukuku | Edit Data';
 
         if ($this->form_validation->run()) {
             $this->buku_model->update();
             $this->session->set_flashdata('success', 'Data berhasil diupdate');
+            redirect('admin/buku');
         }
 
-        $data['buku'] = $this->buku_model->getById($id);
         if (!$data['buku']) echo "gaada";
 
-        $data['title'] = 'Bukuku | Tambah';
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar');
-        $this->load->view('user/form_edit', $data);
+        $this->load->view('admin/form_edit');
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
@@ -93,12 +96,12 @@ class Buku extends CI_Controller
     {
         if (!isset($id)) {
             $this->session->set_flashdata('failed', 'Buku tidak ditemukan !');
-            redirect('buku');
+            redirect('admin/buku');
         }
 
         if ($this->buku_model->delete($id)) {
             $this->session->set_flashdata('success', 'Data buku berhasil dihapus !');
-            redirect('buku');
+            redirect('admin/buku');
         }
     }
 }

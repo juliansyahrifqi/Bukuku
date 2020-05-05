@@ -19,7 +19,7 @@ class Buku_model extends CI_Model
         $data = [
             'id_buku' => uniqid(),
             'judul_buku' => $this->input->post('judul'),
-            'gambar_buku' => $this->_uploadImage(),
+            'gambar_buku' => $this->_uploadGambar(),
             'penerbit' => $this->input->post('penerbit'),
             'penulis' => $this->input->post('penulis'),
             'deskripsi' => $this->input->post('deskripsi'),
@@ -34,22 +34,24 @@ class Buku_model extends CI_Model
         $data = [
             'id_buku' => $this->input->post('id'),
             'judul_buku' => $this->input->post('judul'),
-            'gambar_buku' => $this->_uploadEditImage(),
+            'gambar_buku' => $this->_uploadEditGambar(),
             'penerbit' => $this->input->post('penerbit'),
             'penulis' => $this->input->post('penulis'),
             'deskripsi' => $this->input->post('deskripsi'),
             'tahun_beli' => $this->input->post('tahun')
         ];
 
+        $this->_deleteGambar($this->input->post('id'));
         $this->db->update('buku', $data, ['id_buku' => $this->input->post('id')]);
     }
 
     public function delete($id)
     {
+        $this->_deleteGambar($id);
         return $this->db->delete('buku', ['id_buku' => $id]);
     }
 
-    private function _uploadImage()
+    private function _uploadGambar()
     {
         $file_gambar = $_FILES['gambar']['name'];
 
@@ -68,14 +70,24 @@ class Buku_model extends CI_Model
         }
     }
 
-    private function _uploadEditImage()
+    private function _uploadEditGambar()
     {
         if (!empty($_FILES["gambar"]["name"])) {
-            $gambar_buku = $this->_uploadImage();
+            $gambar_buku = $this->_uploadGambar();
         } else {
             $gambar_buku = $this->input->post('gambar_lama');
         }
 
         return $gambar_buku;
+    }
+
+    private function _deleteGambar($id)
+    {
+        $buku = $this->getById($id);
+
+        if ($buku->gambar_buku != 'default-buku.jpg') {
+            $target_file = explode('.', $buku->gambar_buku)[0];
+            return array_map('unlink', glob(FCPATH . "upload/buku/$target_file.*"));
+        }
     }
 }
