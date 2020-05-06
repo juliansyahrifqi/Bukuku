@@ -9,12 +9,14 @@ class Buku extends CI_Controller
         $this->load->model('buku_model');
         $this->load->library('form_validation');
         $this->load->helper('security');
+        check_admin();
+        is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Bukuku | Buku';
-        $data['jam'] = getTime();
+        $data['greet'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
         $data['buku'] = $this->buku_model->getAll();
 
@@ -26,6 +28,7 @@ class Buku extends CI_Controller
         $this->load->view('template/js');
     }
 
+    // Tambah Buku
     public function add()
     {
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
@@ -34,10 +37,11 @@ class Buku extends CI_Controller
         $this->form_validation->set_rules('deskripsi', 'Deksripsi', 'required|trim');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required');
 
-        $data['jam'] = getTime();
+        $data['title'] = 'Bukuku | Tambah Data';
+        $data['greet'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
         $data['buku'] = $this->buku_model->getAll();
-        $data['title'] = 'Bukuku | Tambah Data';
+
 
         if ($this->form_validation->run()) {
             $this->buku_model->insert();
@@ -58,6 +62,7 @@ class Buku extends CI_Controller
         }
     }
 
+    // Edit Buku
     public function edit($id = null)
     {
         if (!isset($id)) {
@@ -65,16 +70,18 @@ class Buku extends CI_Controller
             redirect('admin/buku');
         }
 
+        // Validation Rules
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
         $this->form_validation->set_rules('penerbit', 'Penerbit', 'required|trim');
         $this->form_validation->set_rules('penulis', 'Penulis', 'required|trim');
         $this->form_validation->set_rules('deskripsi', 'Deksripsi', 'required|trim');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required');
 
-        $data['jam'] = getTime();
+        $data['title'] = 'Bukuku | Edit Data';
+        $data['greet'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
         $data['buku'] = $this->buku_model->getById($id);
-        $data['title'] = 'Bukuku | Edit Data';
+
 
         if ($this->form_validation->run()) {
             $this->buku_model->update();
@@ -92,6 +99,7 @@ class Buku extends CI_Controller
         $this->load->view('template/js');
     }
 
+    // Hapus Buku
     public function delete($id = null)
     {
         if (!isset($id)) {

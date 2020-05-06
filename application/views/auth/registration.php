@@ -7,16 +7,16 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">DAFTAR AKUN </h1>
                         </div>
                         <form class="user" method="post" action="<?= base_url('auth/daftar'); ?>">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
+                                <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nama Lengkap" value="<?= set_value('name'); ?>">
                                 <?= form_error('name', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+                                <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email " value="<?= set_value('email'); ?>">
                                 <?= form_error('email', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                             </div>
 
@@ -31,19 +31,19 @@
                                     <?= form_error('password1', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
+                                    <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Ulangi Password">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Register Account
+                                Daftar Akun
                             </button>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="forgot-password.html">Lupa Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="<?= base_url('auth'); ?>">Already have an account? Login!</a>
+                            <a class="small" href="<?= base_url('auth'); ?>">Sudah punya akun ? Login!</a>
                         </div>
                     </div>
                 </div>

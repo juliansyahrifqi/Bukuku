@@ -1,5 +1,23 @@
 <?php
 
+function is_logged_in()
+{
+    $ci = get_instance();
+    if (!$ci->session->userdata('user_email')) {
+        redirect('auth');
+    }
+}
+
+function check_admin()
+{
+    $ci = get_instance();
+    $user_role = $ci->session->userdata('user_role_id');
+
+    if ($user_role != 1) {
+        redirect('user');
+    }
+}
+
 function getTime()
 {
     $waktu = date('H');

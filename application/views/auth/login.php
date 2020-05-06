@@ -28,8 +28,8 @@
 
                                 <form class="user" method="post" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Email Address or Username ..." value="<?= set_value('username'); ?>">
-
+                                        <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukkan Email atau Username ..." value="<?= set_value('username'); ?>">
+                                        <?= form_error('username', '<small class="text-danger pl-2"><i class="fas fa-exclamation-circle">', '</small></i>'); ?>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
@@ -42,10 +42,10 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" href="forgot-password.html">Lupa Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/daftar'); ?>">Create an Account!</a>
+                                    <a class="small" href="<?= base_url('auth/daftar'); ?>">Daftar Akun</a>
                                 </div>
                             </div>
                         </div>

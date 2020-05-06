@@ -16,7 +16,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
         if ($this->form_validation->run()) {
-            $this->_login();
+            $this->_doLogin();
         } else {
             $data['title'] = "Bukuku | Login";
             $this->load->view('template/auth_header', $data);
@@ -25,7 +25,7 @@ class Auth extends CI_Controller
         }
     }
 
-    private function _login()
+    private function _doLogin()
     {
 
         $username = $this->input->post('username');
@@ -52,7 +52,7 @@ class Auth extends CI_Controller
                        User role_id 2 = User
                     */
                     if ($user['user_role_id'] == 1) {
-                        redirect('admin/buku/');
+                        redirect('admin/dashboard/');
                     } else {
                         redirect('user');
                     }
@@ -61,32 +61,33 @@ class Auth extends CI_Controller
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('failed', 'Akun belum aktif');
+                $this->session->set_flashdata('failed', 'Akun anda tidak aktif');
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('failed', 'Email is not registered');
+            $this->session->set_flashdata('failed', 'Email atau username belum terdaftar');
             redirect('auth');
         }
     }
 
     public function daftar()
     {
-        // Instance objek user_model
-        $hasil = $this->user_model;
-
+        // Validation Rules
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.user_email]', [
-            'is_unique' => "This email has already registered"
+            'is_unique' => "Email ini sudah digunakan!"
         ]);
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[4]|matches[password2]', [
-            'matches' => "Password don't match",
-            'min_length' => "Password too short"
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.user_username]', [
+            'is_unique' => "Username ini sudah digunakan!"
+        ]);
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]', [
+            'matches' => "Password tidak sama",
+            'min_length' => "Password terlalu pendek"
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run()) {
-            $hasil->insert();
+            $this->user_model->insert();
             $this->session->set_flashdata('success', 'Pendaftaran Berhasil');
             redirect('auth');
         } else {

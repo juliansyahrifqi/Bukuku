@@ -2,7 +2,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span><b>10118322 - Rifqi Pratama J - IF8</b></span>
+            <span class="text-dark font-weight-bold">10118322 - Rifqi Pratama J - IF8</span>
         </div>
     </div>
 </footer>
