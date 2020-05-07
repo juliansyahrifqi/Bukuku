@@ -31,6 +31,23 @@
         $('#myTable').DataTable();
     });
 </script>
+
+<!-- Filter Button Datatables -->
+<script>
+    $(document).ready(function() {
+        $(".btn-group .btn").click(function() {
+            var inputValue = $(this).find("input").val();
+            if (inputValue != 'all') {
+                var target = $('table tr[data-status="' + inputValue + '"]');
+                $("table tbody tr").not(target).hide();
+                target.fadeIn();
+            } else {
+                $("table tbody tr").fadeIn();
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

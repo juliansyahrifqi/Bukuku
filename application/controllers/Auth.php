@@ -52,7 +52,7 @@ class Auth extends CI_Controller
                        User role_id 2 = User
                     */
                     if ($user['user_role_id'] == 1) {
-                        redirect('admin/dashboard/');
+                        redirect('admin/dashboard');
                     } else {
                         redirect('user');
                     }

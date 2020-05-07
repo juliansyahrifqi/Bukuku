@@ -18,6 +18,16 @@ function check_admin()
     }
 }
 
+function check_user()
+{
+    $ci = get_instance();
+    $user_role = $ci->session->userdata('user_role_id');
+
+    if ($user_role != 2) {
+        redirect('admin/dashboard');
+    }
+}
+
 function getTime()
 {
     $waktu = date('H');

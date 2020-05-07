@@ -8,12 +8,13 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('buku_model');
         is_logged_in();
+        check_user();
     }
 
     public function index()
     {
         // Helper getTime() 
-        $data['jam'] = getTime();
+        $data['greet'] = getTime();
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
 

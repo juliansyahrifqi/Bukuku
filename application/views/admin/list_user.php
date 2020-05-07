@@ -2,11 +2,30 @@
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h5 class="font-weight-bold text-dark"> Daftar Semua User </h5>
+            <div class="row">
+                <div class="col-sm-6 my-auto">
+                    <h4 class="font-weight-bold text-da">List Data User</h4>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-info active">
+                            <input type="radio" name="status" value="all" checked="checked"> Semua
+                        </label>
+                        <label class="btn btn-success">
+                            <input type="radio" name="status" value="1"> Aktif
+                        </label>
+                        <label class="btn btn-danger">
+                            <input type="radio" name="status" value="0"> Tidak Aktif
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive dt-responsive">
+
                 <table class="table table-hover" id="myTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
@@ -27,7 +46,7 @@
                         <?php } else { ?>
                             <?php $i = 1; ?>
                             <?php foreach ($users as $user) : ?>
-                                <tr class="text-center">
+                                <tr class="text-center" data-status="<?= $user->user_is_active; ?>">
                                     <td>
                                         <?= $i++ ?>
                                     </td>
@@ -51,7 +70,6 @@
                                     <td>
                                         <?= $user->date_created; ?>
                                     </td>
-
                                 </tr>
                             <?php endforeach; ?>
                         <?php } ?>
