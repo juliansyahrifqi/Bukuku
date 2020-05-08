@@ -54,7 +54,7 @@ class Auth extends CI_Controller
                     if ($user['user_role_id'] == 1) {
                         redirect('admin/dashboard');
                     } else {
-                        redirect('user');
+                        redirect('user/profile');
                     }
                 } else {
                     $this->session->set_flashdata('failed', 'Password salah');

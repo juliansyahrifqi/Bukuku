@@ -23,6 +23,7 @@
 
     <!-- DataTables Bootstrap -->
     <link rel="stylesheet" href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.css" />
 </head>
 
 <body id="page-top">

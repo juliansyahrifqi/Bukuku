@@ -14,6 +14,8 @@
 <!-- DataTables Bootstrap -->
 <script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
 <script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>
+
 
 <!-- Bootsrap Date Picker-->
 <script type="text/javascript">
@@ -28,7 +30,14 @@
 <!-- DataTables Bootstrap-->
 <script>
     $(document).ready(function() {
-        $('#myTable').DataTable();
+        var table = $('#myTable').DataTable({
+            responsive: true,
+            buttons: [
+                'excel'
+            ]
+        });
+        table.buttons().container()
+            .appendTo('#myTable_wrapper .col-md-6:eq(0)');
     });
 </script>
 

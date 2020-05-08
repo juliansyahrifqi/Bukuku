@@ -49,7 +49,7 @@
 
         <!-- Nav Item User-->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?= base_url('user/allbuku'); ?>">
                 <i class="far fa-fw fa-user"></i>
                 <span>All Books</span>
             </a>
@@ -65,7 +65,7 @@
 
         <!-- Nav Item My Profile-->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?= base_url('user/profile'); ?>">
                 <i class="far fa-fw fa-user"></i>
                 <span>My Profile</span>
             </a>

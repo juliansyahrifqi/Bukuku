@@ -25,8 +25,8 @@
 
         <div class="card-body">
             <div class="table-responsive dt-responsive">
-
-                <table class="table table-hover" id="myTable" width="100%" cellspacing="0">
+                <table class="table" id="myTable1"></table>
+                <table class="table table-hover display nowrap" id="myTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
                             <th scope="col">No. </th>
@@ -78,8 +78,6 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
-
+    <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
