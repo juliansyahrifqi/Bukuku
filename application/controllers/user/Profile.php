@@ -15,7 +15,7 @@ class Profile extends CI_Controller
     {
         // Helper getTime() 
         $data['greet'] = getTime();
-        $data['title'] = 'My Profile';
+        $data['title'] = 'Bukuku | My Profile';
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
 
         $this->load->view('template/header', $data);

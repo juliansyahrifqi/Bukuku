@@ -1,23 +1,28 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+    <!-- Judul -->
+    <h3 class="mb-4 font-weight-bold text-dark text-center">List Buku Favorit </h3>
+
+    <!-- Jika tambah favorit sukses -->
     <?php if ($this->session->flashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= $this->session->flashdata('success'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Jika status gagal-->
+    <!-- Jika tambah favorit gagal-->
     <?php if ($this->session->flashdata('failed')) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('failed'); ?>
         </div>
     <?php endif; ?>
 
+    <!-- Main Content-->
     <div class="row">
         <!-- Jika Data Buku kosong atau tidak ada -->
         <?php if (empty($favorit)) { ?>
-            <div class="alert alert-danger">Data buku belum ada </div>
+            <div class="alert alert-danger col-md-6 text-center mx-auto">Belum ada buku favorit </div>
 
             <!-- Jika Data Buku tidak kosong -->
         <?php } else { ?>
@@ -61,10 +66,8 @@
             <?php endforeach; ?>
         <?php } ?>
     </div>
+    <!-- /.container-fluid -->
 </div>
-</div>
-</div>
-<!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

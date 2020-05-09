@@ -44,6 +44,7 @@ class Auth extends CI_Controller
                         'user_email' => $user['user_email'],
                         'user_username' => $user['user_username'],
                         'user_role_id' => $user['user_role_id'],
+                        'user_id' => $user['user_id']
                     ];
 
                     $this->session->set_userdata($data);
@@ -57,14 +58,17 @@ class Auth extends CI_Controller
                         redirect('user/profile');
                     }
                 } else {
+                    // Jika Password salah
                     $this->session->set_flashdata('failed', 'Password salah');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('failed', 'Akun anda tidak aktif');
+                // Jika akun dihapus / tidak aktif
+                $this->session->set_flashdata('failed', 'Akun anda sudah tidak aktif');
                 redirect('auth');
             }
         } else {
+            // Jika email atau username belum terdaftar
             $this->session->set_flashdata('failed', 'Email atau username belum terdaftar');
             redirect('auth');
         }

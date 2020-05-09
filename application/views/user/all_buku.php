@@ -1,5 +1,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <h3 class="mb-4 font-weight-bold text-dark text-center">List Semua Buku</h3>
 
     <?php if ($this->session->flashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
@@ -46,8 +47,6 @@
             <?php endforeach; ?>
         <?php } ?>
     </div>
-</div>
-</div>
 </div>
 <!-- /.container-fluid -->
 

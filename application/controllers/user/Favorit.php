@@ -3,10 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Favorit extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('favorit_model');
+        check_user();
+        is_logged_in();
+    }
+
     public function index()
     {
-        $this->load->model('favorit_model');
-
         $data['title'] = 'Bukuku | My Favourite';
         $data['greet'] = getTime();
         $data['user'] = $this->db->get_where('user', ['user_email' => $this->session->userdata('user_email')])->row_array();
@@ -24,8 +30,6 @@ class Favorit extends CI_Controller
 
     public function deleteFavourite($id = null)
     {
-        $this->load->model('favorit_model');
-
         if (!isset($id)) {
             $this->session->set_flashdata('failed', 'Buku favorit anda tidak ditemukan !');
             redirect('user/favorit');

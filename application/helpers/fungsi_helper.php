@@ -14,7 +14,7 @@ function check_admin()
     $user_role = $ci->session->userdata('user_role_id');
 
     if ($user_role != 1) {
-        redirect('user');
+        redirect('user/profile');
     }
 }
 

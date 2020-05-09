@@ -7,6 +7,7 @@ class Allbuku extends CI_Controller
     {
         parent::__construct();
         $this->load->model('buku_model');
+        $this->load->model('favorit_model');
         check_user();
         is_logged_in();
     }
@@ -28,8 +29,6 @@ class Allbuku extends CI_Controller
 
     public function addFavourite()
     {
-        $this->load->model('favorit_model');
-
         $this->favorit_model->addFavourite();
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Buku berhasil ditambahkan ke favorit');
