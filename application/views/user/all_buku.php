@@ -1,5 +1,19 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
+
+    <?php if ($this->session->flashdata('success')) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= $this->session->flashdata('success'); ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Jika status gagal-->
+    <?php if ($this->session->flashdata('failed')) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->session->flashdata('failed'); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="row">
         <!-- Jika Data Buku kosong atau tidak ada -->
         <?php if (empty($buku)) { ?>
@@ -18,7 +32,14 @@
                             <hr class="divider">
 
                             <p class="card-text"><?= $b->deskripsi; ?></p>
-                            <a href="#" class="btn btn-primary">Add To My Favourite</a>
+
+                            <form action="<?= base_url('user/allbuku/addFavourite'); ?>" method="post">
+                                <input type="hidden" name="id_buku" value="<?= $b->id_buku; ?>" />
+                                <input type="hidden" name="user_id" value="<?= $user['user_id']; ?>" />
+
+                                <button type="submit" class="btn btn-primary"> Add to My Favourite</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

@@ -57,7 +57,7 @@
 
         <!-- Nav Item Buku Favorit-->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?= base_url('user/favorit'); ?>">
                 <i class="far fa-fw fa-user"></i>
                 <span>My Favourite</span>
             </a>

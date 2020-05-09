@@ -25,4 +25,18 @@ class Allbuku extends CI_Controller
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
+
+    public function addFavourite()
+    {
+        $this->load->model('favorit_model');
+
+        $this->favorit_model->addFavourite();
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Buku berhasil ditambahkan ke favorit');
+            redirect('user/allbuku');
+        } else {
+            $this->session->set_flashdata('success', 'Buku gagal ditambahkan ke favorit');
+            redirect('user/allbuku');
+        }
+    }
 }

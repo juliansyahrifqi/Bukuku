@@ -12,7 +12,6 @@ class Userlist extends CI_Controller
 
     public function index()
     {
-
         $this->load->model('user_model');
 
         $data['title'] = 'Bukuku | List User';
