@@ -63,7 +63,7 @@ class Buku_model extends CI_Model
 
         if ($file_gambar) {
             $config['upload_path'] = './upload/buku/';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|jpeg|png';
             $config['max_size'] = 2048; // Maks 2 mb
 
             $this->load->library('upload', $config);

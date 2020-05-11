@@ -2,12 +2,12 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+    <div class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-book-reader"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Bukuku</div>
-    </a>
+    </div>
 
     <!-- Jika role user adalah admin tampilkan menu sesuai 
         role usernya -->
@@ -50,7 +50,7 @@
         <!-- Nav Item User-->
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/allbuku'); ?>">
-                <i class="far fa-fw fa-user"></i>
+                <i class="fas fa-fw fa-book-open"></i>
                 <span>All Books</span>
             </a>
         </li>
@@ -58,7 +58,7 @@
         <!-- Nav Item Buku Favorit-->
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/favorit'); ?>">
-                <i class="far fa-fw fa-user"></i>
+                <i class="fas fa-fw fa-star"></i>
                 <span>My Favourite</span>
             </a>
         </li>

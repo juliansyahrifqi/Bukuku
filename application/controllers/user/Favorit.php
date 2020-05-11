@@ -28,6 +28,30 @@ class Favorit extends CI_Controller
         $this->load->view('template/js');
     }
 
+
+    public function addFavourite()
+    {
+        $id_buku = $this->input->post('id_buku');
+        $id_user = $this->input->post('user_id');
+        $check = $this->favorit_model->checkFavourite($id_buku, $id_user);
+
+        if ($check) {
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('failed', 'Buku yang anda pilih sudah ada di favorit');
+                redirect('user/allbuku');
+            }
+        } else {
+            $this->favorit_model->addFavourite();
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Buku berhasil ditambahkan ke favorit');
+                redirect('user/allbuku');
+            } else {
+                $this->session->set_flashdata('success', 'Buku gagal ditambahkan ke favorit');
+                redirect('user/allbuku');
+            }
+        }
+    }
+
     public function deleteFavourite($id = null)
     {
         if (!isset($id)) {
