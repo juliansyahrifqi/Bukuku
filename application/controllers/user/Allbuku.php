@@ -8,10 +8,15 @@ class Allbuku extends CI_Controller
         parent::__construct();
         $this->load->model('buku_model');
         $this->load->model('favorit_model');
+
+        // Cek yang akses halaman user atau bukan
         check_user();
+
+        // Cek yang akses halaman ini sudah login atau belum
         is_logged_in();
     }
 
+    // Halaman tampil semua data buku untuk user
     public function index()
     {
         $data['title'] = 'Bukuku | All Book';
@@ -26,4 +31,5 @@ class Allbuku extends CI_Controller
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
+    // Akhir halaman tampil semua data buku
 }

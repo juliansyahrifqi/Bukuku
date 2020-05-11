@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Favorit_model extends CI_Model
 {
-    // Cek favorit jika ada double data di favorit
+    // Cek favorit jika ada dua data buku yang sama di favorit
     public function checkFavourite($id_buku, $id_user)
     {
         return $this->db->get_where('favorit', ['id_buku' => $id_buku, 'user_id' => $id_user])->row();
@@ -21,6 +21,7 @@ class Favorit_model extends CI_Model
 
         $this->db->insert('favorit', $data);
     }
+    // akhir tambah favorit
 
     // Ambil data favorit berdasarkan id
     public function getFavourite($id)
@@ -34,6 +35,7 @@ class Favorit_model extends CI_Model
         $query = $this->db->get()->result();
         return $query;
     }
+    // akhir ambil data favorit
 
     // Hapus data favorit
     public function deleteFavourite($id)

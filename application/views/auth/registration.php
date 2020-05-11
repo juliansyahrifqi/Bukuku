@@ -12,6 +12,8 @@
                         <div class="text-danger ml-2 mb-3">
                             <small>*password minimal 6 karakter</small>
                         </div>
+
+                        <!-- input form registrasi -->
                         <form class="user" method="post" action="<?= base_url('auth/daftar'); ?>">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nama Lengkap" value="<?= set_value('name'); ?>">
@@ -42,6 +44,8 @@
                                 Daftar Akun
                             </button>
                         </form>
+                        <!-- Akhir input form registrasi -->
+
                         <hr>
 
                         <div class="text-center">

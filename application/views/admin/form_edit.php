@@ -17,6 +17,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">EDIT DATA</h1>
                                     </div>
 
+                                    <!-- Form input edit-->
                                     <form class="buku" method="post" action="" enctype="multipart/form-data">
 
                                         <input type="hidden" name="id" value="<?= $buku->id_buku; ?>" />
@@ -63,12 +64,13 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">
-                                            Add
+                                            Tambah
                                         </button>
                                         <button type="reset" class="btn btn-danger">
                                             Reset
                                         </button>
                                     </form>
+                                    <!-- Akhir form input edit -->
                                 </div>
                             </div>
                         </div>

@@ -3,11 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
+    // Cari user berdasarkan id
     public function userGetById($id)
     {
         return $this->db->get_where('user', ['user_id' => $id])->row();
     }
-    // Login
+    // akhir cari user
+
+    // Check user 
     public function userCheckLogin($username)
     {
         $this->db->where("user_email =  '$username' or user_username =  '$username'");
@@ -15,7 +18,7 @@ class User_model extends CI_Model
         return $query->row_array();
     }
 
-    // Insert Data Daftar
+    // Tambah Data user / pendaftaran
     public function insert()
     {
         $data = [
@@ -31,14 +34,18 @@ class User_model extends CI_Model
 
         $this->db->insert('user', $data);
     }
+    // akhir tambah data
 
     // Hapus akun user
     public function deleteAccount($id)
     {
+        // update data user aktif menjadi 0 
         $this->user_is_active = 0;
         return $this->db->update('user', $this, ['user_id' => $id]);
     }
+    // akhir hapus akun
 
+    // Edit akun
     public function editAccount()
     {
         $data = [
@@ -49,24 +56,32 @@ class User_model extends CI_Model
             'user_gambar' => $this->_uploadEditGambar()
         ];
 
+        // hapus gambar lama, jika diganti gambar baru
         $this->_deleteGambar($this->input->post('id'));
         $this->db->update('user', $data, ['user_id' => $this->input->post('id')]);
     }
+    // akhir edit akun
 
+    // Hapus gambar lama
     private function _deleteGambar($id)
     {
         $user = $this->userGetById($id);
 
+        // Jika gambar user bukan default, hapus gambarnya
         if ($user->user_gambar != 'default.jpg') {
             $target_file = explode('.', $user->user_gambar)[0];
             return array_map('unlink', glob(FCPATH . "upload/user/$target_file.*"));
         }
     }
+    // akhir hapus gambar
 
+    // upload gambar baru
     private function _uploadGambar()
     {
         $file_gambar = $_FILES['gambar']['name'];
 
+        // jika ada gambar baru, upload gambarnya
+        // jika tidak ada, pakai gambar default
         if ($file_gambar) {
             $config['upload_path'] = './upload/user/';
             $config['allowed_types'] = 'gif|jpg|png';
@@ -77,11 +92,13 @@ class User_model extends CI_Model
             if ($this->upload->do_upload('gambar')) {
                 return $this->upload->data('file_name');
             }
-        } else {
-            return "default.jpg";
         }
-    }
 
+        return "default.jpg";
+    }
+    // Akhir upload gambar baru
+
+    // Upload edit gambar
     private function _uploadEditGambar()
     {
         if (!empty($_FILES["gambar"]["name"])) {
@@ -92,6 +109,7 @@ class User_model extends CI_Model
 
         return $user_gambar;
     }
+    // akhir upload edit gambar
 
     // Ambil data user yang bukan admin
     public function getAllUser()

@@ -6,10 +6,15 @@ class Userlist extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        // Cek yang masuk halaman admin atau bukan
         check_admin();
+
+        // Cek apakah yang akses halaman ini sudah login
         is_logged_in();
     }
 
+    // Halaman tampil data user
     public function index()
     {
         $this->load->model('user_model');
@@ -26,4 +31,5 @@ class Userlist extends CI_Controller
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
+    // Akhir tampil data user
 }

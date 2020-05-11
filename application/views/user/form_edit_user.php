@@ -4,12 +4,13 @@
     </div>
     <div class="row">
         <div class="col-md-6 font-weight-bold">
+
+            <!-- Input form edit profile -->
             <form action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $users->user_id; ?>" />
                 <div class=" form-group">
                     <label for="email" class="col-form-label text-dark">Email:</label>
                     <input type="text" class="form-control" id="email" name="email" value="<?= $user['user_email']; ?>" readonly>
-
                 </div>
                 <div class="form-group">
                     <label for="username" class="col-form-label text-dark">Username: </label>
@@ -40,7 +41,8 @@
                     </div>
                 </div>
             </form>
+            <!-- Akhir input form edit profile -->
+
         </div>
     </div>
-
 </div>

@@ -14,18 +14,21 @@
                                     <h1 class="h4 text-gray-900 mb-4">LOGIN</h1>
                                 </div>
 
+                                <!-- Jika pesan sukses-->
                                 <?php if ($this->session->flashdata('success')) : ?>
                                     <div class="alert alert-success" role="alert">
                                         <?= $this->session->flashdata('success'); ?>
                                     </div>
                                 <?php endif; ?>
 
+                                <!-- jika pesan gagal -->
                                 <?php if ($this->session->flashdata('failed')) : ?>
                                     <div class="alert alert-danger" role="alert">
                                         <?= $this->session->flashdata('failed'); ?>
                                     </div>
                                 <?php endif; ?>
 
+                                <!-- input form -->
                                 <form class="user" method="post" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukkan Email atau Username ..." value="<?= set_value('username'); ?>">
@@ -40,6 +43,8 @@
                                         Login
                                     </button>
                                 </form>
+                                <!-- Akhir input form -->
+
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="<?= base_url('auth/daftar'); ?>">Belum punya akun ? Daftar disini!</a>
@@ -49,9 +54,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>

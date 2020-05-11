@@ -3,16 +3,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->load->model('buku_model');
         $this->load->model('user_model');
+
+        // Cek yang masuk halaman admin atau bukan
         check_admin();
+
+        // Cek apakah yang akses halaman ini sudah login
         is_logged_in();
     }
 
+    // Utama
     public function index()
     {
         $data = [
@@ -32,4 +36,5 @@ class Dashboard extends CI_Controller
         $this->load->view('template/footer');
         $this->load->view('template/js');
     }
+    // Akhir utama
 }

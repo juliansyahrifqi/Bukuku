@@ -4,14 +4,14 @@
     <!-- Judul -->
     <h3 class="mb-4 font-weight-bold text-dark text-center">List Buku Favorit </h3>
 
-    <!-- Jika tambah favorit sukses -->
+    <!-- Jika pesan sukses -->
     <?php if ($this->session->flashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= $this->session->flashdata('success'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Jika tambah favorit gagal-->
+    <!-- Jika pesan gagal-->
     <?php if ($this->session->flashdata('failed')) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('failed'); ?>
@@ -53,12 +53,12 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">Buku akan dihapus. Tekan hapus
+                            <div class="modal-body">Buku favorit anda akan dihapus. Tekan hapus
                                 jika anda sudah yakin ingin menghapus
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-primary" href="<?= base_url('user/favorit/deleteFavourite/' . $f->id_favorit); ?>">Hapus</a>
+                                <a class="btn btn-danger" href="<?= base_url('user/favorit/deleteFavourite/' . $f->id_favorit); ?>">Hapus</a>
                             </div>
                         </div>
                     </div>

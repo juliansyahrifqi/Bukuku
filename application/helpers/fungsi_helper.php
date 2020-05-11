@@ -1,5 +1,6 @@
 <?php
 
+// Fungsi cek apakah yang akses sudah login
 function is_logged_in()
 {
     $ci = get_instance();
@@ -8,6 +9,7 @@ function is_logged_in()
     }
 }
 
+// fungsi cek apakah yang akses admin atau bukan
 function check_admin()
 {
     $ci = get_instance();
@@ -18,6 +20,7 @@ function check_admin()
     }
 }
 
+// fungsi cek apakah yang akses user atau bukan
 function check_user()
 {
     $ci = get_instance();
@@ -28,6 +31,7 @@ function check_user()
     }
 }
 
+// fungsi greeting berdasarkan waktu akses
 function getTime()
 {
     $waktu = date('H');

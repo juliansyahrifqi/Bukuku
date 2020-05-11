@@ -1,13 +1,14 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+    <!-- Pesan sukses -->
     <?php if ($this->session->flashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= $this->session->flashdata('success'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Jika tambah favorit gagal-->
+    <!-- Pesan gagal -->
     <?php if ($this->session->flashdata('failed')) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('failed'); ?>

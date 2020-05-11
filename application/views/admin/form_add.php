@@ -17,6 +17,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">TAMBAH DATA</h1>
                                     </div>
 
+                                    <!-- Form inputan -->
                                     <form class="buku" method="post" action="<?= base_url('admin/buku/add'); ?>" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label class="font-weight-bold text-dark" for="judul"> Judul Buku</label>
@@ -65,6 +66,7 @@
                                             Reset
                                         </button>
                                     </form>
+                                    <!-- Akhir form input -->
                                 </div>
                             </div>
                         </div>

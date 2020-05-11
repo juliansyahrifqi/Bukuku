@@ -2,6 +2,7 @@
 <div class="container-fluid">
     <h3 class="mb-4 font-weight-bold text-dark text-center">List Semua Buku</h3>
 
+    <!-- Jika pesan sukses -->
     <?php if ($this->session->flashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= $this->session->flashdata('success'); ?>
@@ -25,7 +26,6 @@
             <?php $i = 0; ?>
             <?php foreach ($buku as $b) : ?>
 
-
                 <div class="col-md-4 col-sm-6 mb-4">
 
                     <div class="card shadow">
@@ -37,6 +37,7 @@
 
                             <p class="card-text"><?= $b->deskripsi; ?></p>
 
+                            <!-- input form tambah favorit -->
                             <form action="<?= base_url('user/favorit/addFavourite'); ?>" method="post">
                                 <input type="hidden" name="id_buku" value="<?= $b->id_buku; ?>" />
                                 <input type="hidden" name="user_id" value="<?= $user['user_id']; ?>" />
@@ -94,6 +95,8 @@
                                     </div>
                                 </div>
                             </form>
+                            <!-- akhir form tambah favorit -->
+
                         </div>
                     </div>
                 </div>

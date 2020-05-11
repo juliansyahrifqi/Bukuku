@@ -10,11 +10,15 @@ class Auth extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    // Halaman login
     public function index()
     {
+        // validation rules
         $this->form_validation->set_rules('username', 'Username or Email', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
+        // Jika validasi berhasil maka lakukan proses login
+        // jika tidak kembalikan ke halaman login kembali
         if ($this->form_validation->run()) {
             $this->_doLogin();
         } else {
@@ -24,20 +28,19 @@ class Auth extends CI_Controller
             $this->load->view('template/auth_footer');
         }
     }
-
+    // Akhir halaman login
     private function _doLogin()
     {
-
+        // username dan password didapat dari input user
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        // User Model
-        $this->load->model('User_model', 'user');
-        $user = $this->user->userCheckLogin($username);
+        // cek apakah username atau email sudah terdaftar di database
+        $user = $this->user_model->userCheckLogin($username);
 
+        // Jika user tidak ada / tidak terdaftar di database
         if ($user != null) {
-            /* Jika user masih aktif*/
-
+            /* Jika user masih aktif, lakukan verifikasi password */
             if ($user['user_is_active'] == 1) {
                 if (password_verify($password, $user['user_password'])) {
                     $data = [
@@ -49,9 +52,8 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($data);
 
-                    /* User role_id 1 = Admin 
-                       User role_id 2 = User
-                    */
+                    // Jika role-nya 1 (admin), arahkan ke halaman admin
+                    // Jika role-nya 2 (user), arahkan ke halaman user
                     if ($user['user_role_id'] == 1) {
                         redirect('admin/dashboard');
                     } else {
@@ -74,9 +76,12 @@ class Auth extends CI_Controller
         }
     }
 
+    // Proses daftar 
     public function daftar()
     {
         // Validation Rules
+        // email dan username harus unik ( belum terdaftar di database )
+        // passwor minimal 6 karakter
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.user_email]', [
             'is_unique' => "Email ini sudah digunakan!"
@@ -90,18 +95,22 @@ class Auth extends CI_Controller
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
+        // Jika validasi berhasil, tambahkan data user
         if ($this->form_validation->run()) {
             $this->user_model->insert();
             $this->session->set_flashdata('success', 'Pendaftaran Berhasil');
             redirect('auth');
         } else {
+            // Jika gagal tampilkan halaman registrasi kembali
             $data['title'] = 'Bukuku | Daftar';
             $this->load->view('template/auth_header', $data);
             $this->load->view('auth/registration');
             $this->load->view('template/auth_footer');
         }
     }
+    // Akhir proses daftar
 
+    // Proses logout
     public function logout()
     {
         $this->session->unset_userdata('user_email');
@@ -109,4 +118,5 @@ class Auth extends CI_Controller
         $this->session->set_flashdata('success', 'Anda telah logout');
         redirect('auth');
     }
+    // Akhir proses logout
 }
