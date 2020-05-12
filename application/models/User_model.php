@@ -40,7 +40,9 @@ class User_model extends CI_Model
     public function deleteAccount($id)
     {
         // update data user aktif menjadi 0 
+        $this->_deleteGambar($id);
         $this->user_is_active = 0;
+        $this->user_gambar = 'default.jpg';
         return $this->db->update('user', $this, ['user_id' => $id]);
     }
     // akhir hapus akun
@@ -57,7 +59,6 @@ class User_model extends CI_Model
         ];
 
         // hapus gambar lama, jika diganti gambar baru
-        $this->_deleteGambar($this->input->post('id'));
         $this->db->update('user', $data, ['user_id' => $this->input->post('id')]);
     }
     // akhir edit akun
@@ -84,7 +85,7 @@ class User_model extends CI_Model
         // jika tidak ada, pakai gambar default
         if ($file_gambar) {
             $config['upload_path'] = './upload/user/';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = 2048; // Maks 2 mb
 
             $this->load->library('upload', $config);
@@ -103,6 +104,7 @@ class User_model extends CI_Model
     {
         if (!empty($_FILES["gambar"]["name"])) {
             $user_gambar = $this->_uploadGambar();
+            $this->_deleteGambar($this->input->post('id'));
         } else {
             $user_gambar = $this->input->post('gambar_lama');
         }

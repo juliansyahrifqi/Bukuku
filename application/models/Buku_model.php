@@ -46,8 +46,6 @@ class Buku_model extends CI_Model
             'tahun_beli' => $this->input->post('tahun')
         ];
 
-        // Hapus gambar sebelumnya
-        $this->_deleteGambar($this->input->post('id'));
         $this->db->update('buku', $data, ['id_buku' => $this->input->post('id')]);
     }
     // Akhir edit buku
@@ -65,11 +63,10 @@ class Buku_model extends CI_Model
     {
         $file_gambar = $_FILES['gambar']['name'];
 
-        // Jika file gambar ada
-        // Jika tidak ada masukkan gambar default
+        // Jika file gambar ada lakukan upload
         if ($file_gambar) {
             $config['upload_path'] = './upload/buku/';
-            $config['allowed_types'] = 'gif|jpg|jpeg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = 2048; // Maks 2 mb
 
             $this->load->library('upload', $config);
@@ -78,25 +75,27 @@ class Buku_model extends CI_Model
                 return $this->upload->data('file_name');
             }
         }
+        // Jika tidak ada, masukkan gambar default
         return "default-buku.jpg";
     }
 
     // Upload edit gambar buku
     private function _uploadEditGambar()
     {
-        // Jika gambar baru ditambahkan, ganti gambar buku
-        // jika tidak pake gambar lama
+        // Jika gambar baru ditambahkan, ganti gambar buku dan hapus gambar lama
+        // jika tidak ada gambar baru pake gambar lama
         if (!empty($_FILES["gambar"]["name"])) {
             $gambar_buku = $this->_uploadGambar();
+            $this->_deleteGambar($this->input->post('id'));
         } else {
-            $gambar_buku = $this->input->post('gambar_lama');
+            $gambar_buku  = $this->input->post('gambar_lama');
         }
 
         return $gambar_buku;
     }
     // Akhir upload edit gambar buku
 
-    // Hapus gambar jika data dihapus
+    // Hapus gambar jika data buku dihapus
     private function _deleteGambar($id)
     {
         $buku = $this->getById($id);

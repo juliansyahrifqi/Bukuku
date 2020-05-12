@@ -64,7 +64,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">
-                                            Tambah
+                                            Edit
                                         </button>
                                         <button type="reset" class="btn btn-danger">
                                             Reset

@@ -26,7 +26,8 @@ class Favorit_model extends CI_Model
     // Ambil data favorit berdasarkan id
     public function getFavourite($id)
     {
-        $this->db->select('favorit.id_favorit, buku.judul_buku as judul_buku, buku.gambar_buku as gambar_buku, buku.penulis as penulis_buku, buku.deskripsi as deskripsi_buku');
+        $this->db->select('favorit.id_favorit, buku.judul_buku as judul_buku, buku.gambar_buku as gambar_buku, buku.penulis as penulis_buku, buku.deskripsi as deskripsi_buku,
+        buku.penerbit as penerbit_buku, buku.tahun_beli as tahun_beli, buku.id_buku');
         $this->db->from('favorit');
         $this->db->join('buku', 'favorit.id_buku = buku.id_buku', 'INNER');
         $this->db->join('user', 'favorit.user_id = user.user_id', 'INNER');

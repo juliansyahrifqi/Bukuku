@@ -26,6 +26,7 @@
 
             <!-- Jika Data Buku tidak kosong -->
         <?php } else { ?>
+            <?php $i = 0; ?>
             <?php foreach ($favorit as $f) : ?>
 
                 <div class="col-md-4 col-sm-6 mb-4">
@@ -38,13 +39,73 @@
 
                             <p class="card-text"><?= $f->deskripsi_buku; ?></p>
 
-                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#deleteFavouriteModal">
-                                Hapus dari favorit</a>
+                            <a href="" class="btn btn-dark" data-toggle="modal" data-target="#detailModal<?= $i; ?>">
+                                <small><i class="fas fa-info"></i></small> Detail Buku
+                            </a>
+
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#deleteFavouriteModal<?= $f->id_favorit; ?>">
+                                <small><i class="fas fa-trash"></i></small>
+                                Hapus dari favorit
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="deleteFavouriteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                <!-- Modal Detail Buku -->
+                <div class="modal fade" id="detailModal<?= $i; ?>" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-bold text-dark">Detail Buku</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <img src="<?= base_url('upload/buku/') . $f->gambar_buku; ?>" height="400" alt="Gambar Buku">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+
+                                        <h4 class="font-weight-bold text-dark mb-4"><?= $f->judul_buku; ?></h4>
+                                        <table width=" 100%" class="text-dark">
+                                            <tr>
+                                                <th class="border bg-light">Penulis:</th>
+                                                <td class="border"><?= $f->penulis_buku; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border bg-light">Penerbit:</th>
+                                                <td class="border"><?= $f->penerbit_buku; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border bg-light">Tahun Beli:</th>
+                                                <td class="border"><?= $f->tahun_beli; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border bg-light">Id Buku:</th>
+                                                <td class="border"><?= $f->id_buku; ?></td>
+                                            </tr>
+                                        </table>
+                                        <div class="card rounded-0 mt-3">
+                                            <p><?= $f->deskripsi_buku; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Akhir modal detail buku -->
+
+                <!-- Modal delete favorit -->
+                <div class="modal fade" id="deleteFavouriteModal<?= $f->id_favorit; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -63,6 +124,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Akhir modal delete favorit -->
+
+                <?php $i++; ?>
             <?php endforeach; ?>
         <?php } ?>
     </div>
