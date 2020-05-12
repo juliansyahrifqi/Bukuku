@@ -120,20 +120,20 @@ class User_model extends CI_Model
     // Hitung jumlah semua user 
     public function countAllUser()
     {
-        return $this->db->count_all_results('user');
+        return $this->db->where('user_role_id', 2)->from("user")->count_all_results();
     }
 
     // Hitung jumlah user yang aktif
     public function countActiveUser()
     {
-        $query = $this->db->where('user_is_active', 1)->get('user');
+        $query = $this->db->get_where('user', ['user_is_active' => 1, 'user_role_id' => 2]);
         return $query->num_rows();
     }
 
     // Hitung jumlah user yang sudah tidak aktif
     public function countUnactiveUser()
     {
-        $query = $this->db->where('user_is_active', 0)->get('user');
+        $query = $this->db->get_where('user', ['user_is_active' => 0, 'user_role_id' => 2]);
         return $query->num_rows();
     }
 }

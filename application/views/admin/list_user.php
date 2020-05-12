@@ -68,7 +68,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?= $user->date_created; ?>
+                                        <?= date('d F Y', $user->date_created); ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

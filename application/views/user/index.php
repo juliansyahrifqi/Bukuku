@@ -28,7 +28,7 @@
                     <h5 class="card-title text-uppercase font-weight-bold text-dark"><?= $user['user_nama']; ?></h5>
                     <p class="card-text"><?= $user['user_email']; ?></p>
                     <p class="card-text"><?= $user['user_username']; ?></p>
-                    <p class="card-text"><?= $user['date_created']; ?></p>
+                    <p class="card-text">Aktif sejak <?= date('d F Y', $user['date_created']); ?></p>
                 </div>
 
                 </>

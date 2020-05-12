@@ -19,7 +19,7 @@
     <div class="row">
         <!-- Jika Data Buku kosong atau tidak ada -->
         <?php if (empty($buku)) { ?>
-            <div class="alert alert-danger">Data buku belum ada </div>
+            <div class="alert alert-danger col-md-6 text-center mx-auto">Data buku belum ada </div>
 
             <!-- Jika Data Buku tidak kosong -->
         <?php } else { ?>
