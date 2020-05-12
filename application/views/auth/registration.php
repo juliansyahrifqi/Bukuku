@@ -57,4 +57,19 @@
         </div>
     </div>
 
+    <div class="card o-hidden border-0 shadow-lg col-lg-7 mx-auto my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center font-weight-bold text-dark p-3">
+                        Dibuat oleh :<br> 10118322 - Rifqi Pratama Juliansyah - IF8
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>

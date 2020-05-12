@@ -75,14 +75,14 @@
                                     </td>
                                     <td width="150">
                                         <a href="<?= base_url('admin/buku/edit/' . $b->id_buku); ?>" class="btn btn-primary btn-circle"><i class="fas fa-edit"></i></a>
-                                        <a href="" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal">
+                                        <a href="" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal<?= $b->id_buku; ?>">
                                             <i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
 
                                 <!-- Konfirmasi Delete 
                                     Delete Modal -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal<?= $b->id_buku; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
